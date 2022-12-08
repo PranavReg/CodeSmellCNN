@@ -6,7 +6,9 @@ import git
 import shutil
 import util
 import time
-import
+import codeSmellDetectDesignate
+import CodeSplit
+import Labledata
 
 if __name__ == "__main__":
   RepoListfile=r'G:\Project\ProjectList.txt'
@@ -39,11 +41,11 @@ if __name__ == "__main__":
               continue
 
 
-      Designate.analyze_repositories(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_SMELLS_RESULTS_FOLDER+projectName, DESIGNITE_JAVA_JAR_PATH)
+      codeSmellDetectDesignate.analyze_repositories(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_SMELLS_RESULTS_FOLDER+projectName, DESIGNITE_JAVA_JAR_PATH)
 
-      codesplit.java_code_split(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_CODE_SPLIT_MODE_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName, JAVA_CODE_SPLIT_EXE_PATH)
-      codesplit.java_code_split(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_CODE_SPLIT_MODE_METHOD+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_CODE_SPLIT_EXE_PATH)
+      CodeSplit.java_code_split(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_CODE_SPLIT_MODE_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName, JAVA_CODE_SPLIT_EXE_PATH)
+      CodeSplit.java_code_split(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_CODE_SPLIT_MODE_METHOD+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_CODE_SPLIT_EXE_PATH)
       time.sleep(5)
 
-      learningData.generate_data(JAVA_SMELLS_RESULTS_FOLDER+projectName, JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_LEARNING_DATA_FOLDER_BASE+projectName)
+      Labledata.generate_data(JAVA_SMELLS_RESULTS_FOLDER+projectName, JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_LEARNING_DATA_FOLDER_BASE+projectName)
 
