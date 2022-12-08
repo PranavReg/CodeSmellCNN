@@ -1,6 +1,3 @@
-import Designate
-import learningData
-import codesplit
 import os
 import git
 import shutil
