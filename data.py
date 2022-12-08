@@ -9,6 +9,7 @@ import time
 import codeSmellDetectDesignate
 import CodeSplit
 import Labledata
+import TokenizeData
 
 if __name__ == "__main__":
   RepoListfile=r'G:\Project\ProjectList.txt'
@@ -20,6 +21,8 @@ if __name__ == "__main__":
   JAVA_CODE_SPLIT_MODE_METHOD = "method"
   JAVA_CODE_SPLIT_EXE_PATH = r'G:\Project\CodeSplitJava.jar'
   JAVA_LEARNING_DATA_FOLDER_BASE = r'G:\Project\learningDataOutput\'+p
+  Tokenizer_Out_Path = r'G:\Project\TokenDataOutPut'
+  Tokenizer_Exe_Path = r'G:\tokenizer-master\src\tokenizer.exe'
         
   repo_list =[]
   with open(RepoListfile) as f:
@@ -48,4 +51,9 @@ if __name__ == "__main__":
       time.sleep(5)
 
       Labledata.generate_data(JAVA_SMELLS_RESULTS_FOLDER+projectName, JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_LEARNING_DATA_FOLDER_BASE+projectName)
+      
+    count=0
+    for filename in glob.iglob(f'{JAVA_LEARNING_DATA_FOLDER_BASE}\*'):
+        count+=1
+        TokenizeData.tokenize("Java",filename,Tokenizer_Out_Path,Tokenizer_Exe_Path,count)
 
