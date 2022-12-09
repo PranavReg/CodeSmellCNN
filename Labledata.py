@@ -129,9 +129,9 @@ def _scan_solution(solution, positive_cases_folder, negative_cases_folder,
 
 
 def generate_data(smells_results_folder, code_split_out_folder_class, code_split_out_folder_method, learning_data_folder_path):
-    SMELL_NAME_LIST = ["LongStatement", "LongMethod", "MagicNumber", "UnutilizedAbstraction"]
-    SMELL_NAME_STR_LIST = ["Long Statement", "Long Method", "Magic Number", "Unutilized Abstraction"]
-    SMELL_TYPE_LIST = ["Impl", "Impl", "Impl", "Design"]
+    SMELL_NAME_LIST = ["LongStatement", "MagicNumber", "UnutilizedAbstraction"]
+    SMELL_NAME_STR_LIST = ["Long Statement", "Magic Number", "Unutilized Abstraction"]
+    SMELL_TYPE_LIST = ["Impl", "Impl", "Design"]
 
     if not os.path.exists(learning_data_folder_path):
         os.makedirs(learning_data_folder_path)

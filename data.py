@@ -1,7 +1,6 @@
 import os
 import git
-import shutil
-import util
+import glob
 import time
 import codeSmellDetectDesignate
 import CodeSplit
@@ -9,23 +8,23 @@ import Labledata
 import TokenizeData
 
 if __name__ == "__main__":
-  RepoListfile=r'G:\Project\ProjectList.txt'
-  JAVA_SMELLS_RESULTS_FOLDER=r"G:\DesignateResults\"+p
-  DESIGNITE_JAVA_JAR_PATH=r"G:\DesigniteJava.jar"
-  JAVA_CODE_SPLIT_OUT_FOLDER_CLASS = r'G:\Project\codesplit_java_class\'+p
-  JAVA_CODE_SPLIT_OUT_FOLDER_METHOD = r'G:\Project\codesplit_java_method\'+p
-  JAVA_CODE_SPLIT_MODE_CLASS = "class"
-  JAVA_CODE_SPLIT_MODE_METHOD = "method"
-  JAVA_CODE_SPLIT_EXE_PATH = r'G:\Project\CodeSplitJava.jar'
-  JAVA_LEARNING_DATA_FOLDER_BASE = r'G:\Project\learningDataOutput\'+p
-  Tokenizer_Out_Path = r'G:\Project\TokenDataOutPut'
-  Tokenizer_Exe_Path = r'G:\tokenizer-master\src\tokenizer.exe'
-        
-  repo_list =[]
-  with open(RepoListfile) as f:
-      for line in f:
-          repo_list.append(line.strip())
-  for i in repo_list:
+    RepoListfile=r'G:\ProjectList.txt'
+    JAVA_SMELLS_RESULTS_FOLDER=r"G:\zzz\DesignateResults"
+    DESIGNITE_JAVA_JAR_PATH="C:\\Users\\ranad\\Downloads\\DesigniteJava.jar"
+    JAVA_CODE_SPLIT_OUT_FOLDER_CLASS = r'G:\zzz\codesplit_java_class'
+    JAVA_CODE_SPLIT_OUT_FOLDER_METHOD = r'G:\zzz\codesplit_java_method'
+    JAVA_CODE_SPLIT_MODE_CLASS = "class"
+    JAVA_CODE_SPLIT_MODE_METHOD = "method"
+    JAVA_CODE_SPLIT_EXE_PATH = r'C:\Users\ranad\Desktop\Pranav\Studies\Data Analytics in Software Engineering\Project\CodeSplitJava.jar'
+    JAVA_LEARNING_DATA_FOLDER_BASE = r'G:\zzz\learningDataOutput'
+    Tokenizer_Out_Path = r'G:\zzz\TokenDataOutPut'
+    Tokenizer_Exe_Path = r'G:\tokenizer-master\src\tokenizer.exe'
+
+    repo_list =[]
+    with open(RepoListfile) as f:
+        for line in f:
+            repo_list.append(line.strip())
+    for i in repo_list:
       c=i.split("/")
       projectName=c[0]+"-"+c[1]
       REMOTE_REPO_URL="https://github.com/"+i
@@ -41,14 +40,14 @@ if __name__ == "__main__":
               continue
 
 
-      codeSmellDetectDesignate.analyze_repositories(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_SMELLS_RESULTS_FOLDER+projectName, DESIGNITE_JAVA_JAR_PATH)
+      codeSmellDetectDesignate.analyze_repositories(JAVA_REPO_SOURCE_FOLDER, JAVA_SMELLS_RESULTS_FOLDER+"\\"+projectName, DESIGNITE_JAVA_JAR_PATH)
 
-      CodeSplit.java_code_split(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_CODE_SPLIT_MODE_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName, JAVA_CODE_SPLIT_EXE_PATH)
-      CodeSplit.java_code_split(JAVA_REPO_SOURCE_FOLDER+projectName, JAVA_CODE_SPLIT_MODE_METHOD+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_CODE_SPLIT_EXE_PATH)
+      CodeSplit.java_code_split(JAVA_REPO_SOURCE_FOLDER, JAVA_CODE_SPLIT_MODE_CLASS,JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+"\\"+projectName, JAVA_CODE_SPLIT_EXE_PATH)
+      CodeSplit.java_code_split(JAVA_REPO_SOURCE_FOLDER, JAVA_CODE_SPLIT_MODE_METHOD,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+"\\"+projectName, JAVA_CODE_SPLIT_EXE_PATH)
       time.sleep(5)
 
-      Labledata.generate_data(JAVA_SMELLS_RESULTS_FOLDER+projectName, JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+projectName, JAVA_LEARNING_DATA_FOLDER_BASE+projectName)
-      
+      Labledata.generate_data(JAVA_SMELLS_RESULTS_FOLDER+"\\"+projectName, JAVA_CODE_SPLIT_OUT_FOLDER_CLASS+"\\"+projectName,JAVA_CODE_SPLIT_OUT_FOLDER_METHOD+"\\"+projectName, JAVA_LEARNING_DATA_FOLDER_BASE+"\\"+projectName)
+
     count=0
     for filename in glob.iglob(f'{JAVA_LEARNING_DATA_FOLDER_BASE}\*'):
         count+=1
